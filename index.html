@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defender - Cybersecurity Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1><i class="fas fa-shield-alt"></i> Defender</h1>
+            </div>
+            <div class="header-right">
+                <div class="datetime" id="datetime"></div>
+                <div class="network-status" id="networkStatus">
+                    <i class="fas fa-wifi"></i>
+                    <span id="networkText">Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Search will be inserted here by JavaScript -->
+            
+            <!-- Cybersecurity Categories -->
+            <div class="categories-grid">
+                
+                <!-- Network Security -->
+                <div class="category-card" id="network-security">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired"></i>
+                        <h2>Network Security</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Firewall Management</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.pfsense.org/" target="_blank">pfSense Documentation</a></li>
+                                <li><a href="https://www.cisco.com/c/en/us/support/security/firewalls.html" target="_blank">Cisco Firewall Guide</a></li>
+                                <li><a href="https://docs.fortinet.com/fortigate" target="_blank">FortiGate Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Network Monitoring</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.wireshark.org/" target="_blank">Wireshark</a></li>
+                                <li><a href="https://nmap.org/" target="_blank">Nmap Network Discovery</a></li>
+                                <li><a href="https://www.nagios.org/" target="_blank">Nagios Monitoring</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>VPN & Remote Access</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://openvpn.net/" target="_blank">OpenVPN</a></li>
+                                <li><a href="https://www.wireguard.com/" target="_blank">WireGuard</a></li>
+                                <li><a href="https://strongswan.org/" target="_blank">strongSwan IPsec</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threat Intelligence -->
+                <div class="category-card" id="threat-intelligence">
+                    <div class="card-header">
+                        <i class="fas fa-search"></i>
+                        <h2>Threat Intelligence</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Threat Feeds</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.malwarebytes.com/labs" target="_blank">Malwarebytes Labs</a></li>
+                                <li><a href="https://threatpost.com/" target="_blank">Threatpost</a></li>
+                                <li><a href="https://www.virustotal.com/" target="_blank">VirusTotal</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>IOC Analysis</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://otx.alienvault.com/" target="_blank">AlienVault OTX</a></li>
+                                <li><a href="https://www.hybrid-analysis.com/" target="_blank">Hybrid Analysis</a></li>
+                                <li><a href="https://www.shodan.io/" target="_blank">Shodan</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Research & Reports</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.mitre.org/attack/" target="_blank">MITRE ATT&CK</a></li>
+                                <li><a href="https://www.fireeye.com/current-threats.html" target="_blank">FireEye Threat Intelligence</a></li>
+                                <li><a href="https://www.crowdstrike.com/blog/" target="_blank">CrowdStrike Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident Response -->
+                <div class="category-card" id="incident-response">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Incident Response</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Frameworks & Playbooks</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.sans.org/white-papers/33901/" target="_blank">SANS IR Framework</a></li>
+                                <li><a href="https://www.nist.gov/cyberframework" target="_blank">NIST Cybersecurity Framework</a></li>
+                                <li><a href="https://www.cisa.gov/incident-response" target="_blank">CISA IR Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Forensic Tools</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.sleuthkit.org/" target="_blank">The Sleuth Kit</a></li>
+                                <li><a href="https://www.volatilityfoundation.org/" target="_blank">Volatility Framework</a></li>
+                                <li><a href="https://www.kali.org/" target="_blank">Kali Linux Tools</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Communication & Reporting</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.us-cert.gov/" target="_blank">US-CERT</a></li>
+                                <li><a href="https://www.first.org/" target="_blank">FIRST.org</a></li>
+                                <li><a href="https://www.enisa.europa.eu/" target="_blank">ENISA</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vulnerability Management -->
+                <div class="category-card" id="vulnerability-management">
+                    <div class="card-header">
+                        <i class="fas fa-bug"></i>
+                        <h2>Vulnerability Management</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Scanning & Assessment</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.tenable.com/products/nessus" target="_blank">Nessus Scanner</a></li>
+                                <li><a href="https://www.openvas.org/" target="_blank">OpenVAS</a></li>
+                                <li><a href="https://www.rapid7.com/products/nexpose/" target="_blank">Rapid7 Nexpose</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>CVE Databases</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://nvd.nist.gov/" target="_blank">National Vulnerability Database</a></li>
+                                <li><a href="https://cve.mitre.org/" target="_blank">CVE Program</a></li>
+                                <li><a href="https://www.exploit-db.com/" target="_blank">Exploit Database</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Patch Management</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://docs.microsoft.com/en-us/windows/deployment/update/" target="_blank">Windows Update</a></li>
+                                <li><a href="https://access.redhat.com/security/" target="_blank">Red Hat Security</a></li>
+                                <li><a href="https://ubuntu.com/security" target="_blank">Ubuntu Security</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Identity & Access Management -->
+                <div class="category-card" id="identity-access-management">
+                    <div class="card-header">
+                        <i class="fas fa-user-shield"></i>
+                        <h2>Identity & Access Management</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Authentication</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/" target="_blank">Azure Active Directory</a></li>
+                                <li><a href="https://www.okta.com/" target="_blank">Okta Identity</a></li>
+                                <li><a href="https://www.freeipa.org/" target="_blank">FreeIPA</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Multi-Factor Authentication</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://authy.com/" target="_blank">Authy</a></li>
+                                <li><a href="https://www.yubico.com/" target="_blank">YubiKey</a></li>
+                                <li><a href="https://duo.com/" target="_blank">Duo Security</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Privileged Access</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.cyberark.com/" target="_blank">CyberArk</a></li>
+                                <li><a href="https://www.beyondtrust.com/" target="_blank">BeyondTrust</a></li>
+                                <li><a href="https://www.hashicorp.com/products/vault" target="_blank">HashiCorp Vault</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Operations -->
+                <div class="category-card" id="security-operations">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h2>Security Operations</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>SIEM & Logging</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.splunk.com/" target="_blank">Splunk</a></li>
+                                <li><a href="https://www.elastic.co/security" target="_blank">Elastic Security</a></li>
+                                <li><a href="https://www.ibm.com/security/security-intelligence/qradar" target="_blank">IBM QRadar</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>SOAR Platforms</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://phantom.splunk.com/" target="_blank">Splunk Phantom</a></li>
+                                <li><a href="https://www.demisto.com/" target="_blank">Demisto (Cortex XSOAR)</a></li>
+                                <li><a href="https://www.swimlane.com/" target="_blank">Swimlane</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Threat Hunting</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.crowdstrike.com/falcon-platform/" target="_blank">CrowdStrike Falcon</a></li>
+                                <li><a href="https://www.carbonblack.com/" target="_blank">VMware Carbon Black</a></li>
+                                <li><a href="https://www.endgame.com/" target="_blank">Elastic Endgame</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud Security -->
+                <div class="category-card" id="cloud-security">
+                    <div class="card-header">
+                        <i class="fas fa-cloud"></i>
+                        <h2>Cloud Security</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>AWS Security</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://aws.amazon.com/security/" target="_blank">AWS Security Center</a></li>
+                                <li><a href="https://docs.aws.amazon.com/guardduty/" target="_blank">Amazon GuardDuty</a></li>
+                                <li><a href="https://aws.amazon.com/config/" target="_blank">AWS Config</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Azure Security</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://azure.microsoft.com/en-us/services/security-center/" target="_blank">Azure Security Center</a></li>
+                                <li><a href="https://docs.microsoft.com/en-us/azure/sentinel/" target="_blank">Azure Sentinel</a></li>
+                                <li><a href="https://azure.microsoft.com/en-us/services/key-vault/" target="_blank">Azure Key Vault</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Container Security</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.docker.com/products/docker-security" target="_blank">Docker Security</a></li>
+                                <li><a href="https://kubernetes.io/docs/concepts/security/" target="_blank">Kubernetes Security</a></li>
+                                <li><a href="https://www.twistlock.com/" target="_blank">Twistlock (Prisma Cloud)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance & Governance -->
+                <div class="category-card" id="compliance-governance">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h2>Compliance & Governance</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="subcategory">
+                            <h3>Frameworks</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.iso.org/isoiec-27001-information-security.html" target="_blank">ISO 27001</a></li>
+                                <li><a href="https://www.pcisecuritystandards.org/" target="_blank">PCI DSS</a></li>
+                                <li><a href="https://www.nist.gov/cyberframework" target="_blank">NIST Framework</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Regulations</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://gdpr.eu/" target="_blank">GDPR</a></li>
+                                <li><a href="https://www.hhs.gov/hipaa/" target="_blank">HIPAA</a></li>
+                                <li><a href="https://www.sox-online.com/" target="_blank">SOX</a></li>
+                            </ul>
+                        </div>
+                        <div class="subcategory">
+                            <h3>Assessment Tools</h3>
+                            <ul class="resource-list">
+                                <li><a href="https://www.cisecurity.org/cis-benchmarks/" target="_blank">CIS Benchmarks</a></li>
+                                <li><a href="https://www.rapid7.com/products/nexpose/" target="_blank">Rapid7 Nexpose</a></li>
+                                <li><a href="https://www.qualys.com/apps/compliance/" target="_blank">Qualys Compliance</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- News Ticker -->
+    <div class="news-ticker-container">
+        <div class="news-ticker">
+            <div class="news-item" id="newsItems">
+                Loading cybersecurity news...
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <span>Defender v1.0.0 | © 2025 by FABREulous Technology</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

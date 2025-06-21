@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Debug Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #000; color: #0f0; }
+        .status { font-size: 24px; margin: 20px 0; }
+        .log { margin: 5px 0; }
+        .online { color: #0f0; }
+        .offline { color: #f00; }
+        .testing { color: #ff0; }
+    </style>
+</head>
+<body>
+    <h1>NETWORK DEBUG TEST</h1>
+    <div class="status" id="status">STARTING...</div>
+    <div id="log"></div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        const logDiv = document.getElementById('log');
+        let testCount = 0;
+        
+        function addLog(message) {
+            const time = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log';
+            logEntry.textContent = `[${time}] ${message}`;
+            logDiv.appendChild(logEntry);
+            console.log(`[${time}] ${message}`);
+            // Keep only last 20 entries
+            while (logDiv.children.length > 20) {
+                logDiv.removeChild(logDiv.firstChild);
+            }
+        }
+        
+        function setStatus(text, className) {
+            statusDiv.textContent = text;
+            statusDiv.className = `status ${className}`;
+        }
+        
+        function testNetwork() {
+            testCount++;
+            setStatus('TESTING...', 'testing');
+            addLog(`Test #${testCount} started`);
+            
+            const img = new Image();
+            let finished = false;
+            
+            // Timeout after 3 seconds
+            const timeout = setTimeout(() => {
+                if (!finished) {
+                    finished = true;
+                    setStatus('OFFLINE', 'offline');
+                    addLog('Test TIMED OUT - OFFLINE');
+                }
+            }, 3000);
+            
+            img.onload = function() {
+                if (!finished) {
+                    finished = true;
+                    clearTimeout(timeout);
+                    setStatus('ONLINE', 'online');
+                    addLog('Test SUCCESS - Image loaded - ONLINE');
+                }
+            };
+            
+            img.onerror = function() {
+                if (!finished) {
+                    finished = true;
+                    clearTimeout(timeout);
+                    setStatus('OFFLINE', 'offline');
+                    addLog('Test ERROR - Image failed - OFFLINE');
+                }
+            };
+            
+            // Use a test URL that should definitely fail when offline
+            const testUrl = `https://httpbin.org/status/200?test=${Date.now()}`;
+            addLog(`Testing: ${testUrl}`);
+            img.src = testUrl;
+        }
+        
+        // Test immediately
+        addLog('Starting network detection test');
+        testNetwork();
+        
+        // Test every 3 seconds
+        setInterval(testNetwork, 3000);
+        
+        // Also test browser's navigator.onLine
+        setInterval(() => {
+            addLog(`Browser says: navigator.onLine = ${navigator.onLine}`);
+        }, 5000);
+    </script>
+</body>
+</html>

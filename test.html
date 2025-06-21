@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Test</title>
+</head>
+<body>
+    <h1>Network Detection Test</h1>
+    <div id="status">Testing...</div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        
+        function testNetwork() {
+            statusDiv.textContent = 'Testing...';
+            console.log('Starting network test');
+            
+            // Test 1: Simple image load
+            const img = new Image();
+            const timeout = setTimeout(() => {
+                console.log('Image test timed out');
+                statusDiv.textContent = 'OFFLINE - Image test failed';
+            }, 3000);
+            
+            img.onload = () => {
+                clearTimeout(timeout);
+                console.log('Image test succeeded');
+                statusDiv.textContent = 'ONLINE - Image test passed';
+            };
+            
+            img.onerror = () => {
+                clearTimeout(timeout);
+                console.log('Image test failed');
+                statusDiv.textContent = 'OFFLINE - Image load error';
+            };
+            
+            console.log('Loading image...');
+            img.src = `https://www.google.com/favicon.ico?t=${Date.now()}`;
+        }
+        
+        // Test immediately
+        testNetwork();
+        
+        // Test every 10 seconds
+        setInterval(testNetwork, 10000);
+    </script>
+</body>
+</html>

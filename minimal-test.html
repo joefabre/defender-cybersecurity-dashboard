@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Test</title>
+</head>
+<body>
+    <h1>JavaScript Test</h1>
+    <button onclick="testButton()">CLICK ME</button>
+    <div id="result">Waiting...</div>
+    
+    <script>
+        function testButton() {
+            console.log('Button clicked!');
+            document.getElementById('result').textContent = 'Button works! Time: ' + new Date().toLocaleTimeString();
+        }
+        
+        console.log('JavaScript loaded successfully');
+        
+        // Test if our terminal element exists in main page
+        setTimeout(() => {
+            if (window.parent && window.parent.document) {
+                const terminal = window.parent.document.getElementById('networkTerminal');
+                console.log('Terminal element in parent:', terminal);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

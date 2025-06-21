@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Test</title>
+    <style>
+        body {
+            background: #0d1117;
+            color: #e0e6ed;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .terminal {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .terminal-line {
+            margin: 2px 0;
+            white-space: pre-wrap;
+        }
+        .command { color: #58a6ff; }
+        .output { color: #e0e6ed; }
+        .success { color: #2ea043; }
+        .error { color: #f85149; }
+    </style>
+</head>
+<body>
+    <h1>Terminal Test</h1>
+    <div class="terminal" id="testTerminal">
+        <div class="terminal-line">Loading...</div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('testTerminal');
+        
+        function addLine(text, className = '') {
+            console.log('Adding line:', text);
+            const line = document.createElement('div');
+            line.className = `terminal-line ${className}`;
+            line.textContent = text;
+            terminal.appendChild(line);
+        }
+        
+        function runTest() {
+            console.log('Running terminal test...');
+            terminal.innerHTML = ''; // Clear
+            
+            addLine('=== NETWORK TERMINAL TEST ===', 'success');
+            addLine('$ ifconfig -a', 'command');
+            addLine('en0: UP,BROADCAST,RUNNING', 'output');
+            addLine('inet 192.168.1.100', 'output');
+            addLine('', '');
+            addLine('$ netstat -rn', 'command');
+            addLine('default 192.168.1.1 UG en0', 'output');
+            addLine('', '');
+            addLine('Test completed at: ' + new Date().toLocaleTimeString(), 'success');
+        }
+        
+        // Run immediately
+        runTest();
+        
+        // Run every 3 seconds
+        setInterval(runTest, 3000);
+        
+        console.log('Terminal test script loaded');
+    </script>
+</body>
+</html>
