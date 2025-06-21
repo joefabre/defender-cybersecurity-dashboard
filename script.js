@@ -375,20 +375,26 @@ function addQuickLinksNavigation() {
     ];
     
     quickLinksContainer.innerHTML = `
-        <div class="quick-links">
+        <nav class="quick-links" role="navigation" aria-label="Quick navigation to cybersecurity sections">
             <div class="quick-links-header">
-                <i class="fas fa-bolt"></i>
+                <i class="fas fa-bolt" aria-hidden="true"></i>
                 <span>Quick Jump</span>
             </div>
-            <div class="quick-links-buttons">
-                ${quickLinks.map(link => `
-                    <a href="#${link.id}" class="quick-link-btn" data-target="${link.id}">
-                        <i class="${link.icon}"></i>
+            <div class="quick-links-buttons" role="toolbar" aria-label="Section navigation buttons">
+                ${quickLinks.map((link, index) => `
+                    <a href="#${link.id}" 
+                       class="quick-link-btn" 
+                       data-target="${link.id}"
+                       role="button"
+                       tabindex="0"
+                       aria-label="Jump to ${link.text} section"
+                       title="Navigate to ${link.text} cybersecurity resources">
+                        <i class="${link.icon}" aria-hidden="true"></i>
                         <span>${link.text}</span>
                     </a>
                 `).join('')}
             </div>
-        </div>
+        </nav>
     `;
     
     // Add quick links styles
@@ -422,6 +428,7 @@ function addQuickLinksNavigation() {
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
+            role: toolbar;
         }
         .quick-link-btn {
             display: flex;
@@ -436,22 +443,41 @@ function addQuickLinksNavigation() {
             font-size: 0.85rem;
             transition: all 0.2s ease;
             min-width: 100px;
+            min-height: 44px; /* 508 compliance: minimum touch target */
             justify-content: center;
+            cursor: pointer;
         }
-        .quick-link-btn:hover {
+        .quick-link-btn:hover, .quick-link-btn:focus {
             background: rgba(88, 166, 255, 0.2);
             border-color: #58a6ff;
             color: #58a6ff;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
+            outline: 3px solid #58a6ff;
+            outline-offset: 2px;
         }
         .quick-link-btn i {
             font-size: 0.9rem;
+            pointer-events: none; /* Prevent icon from interfering with focus */
         }
         .quick-link-btn.active {
             background: rgba(46, 160, 67, 0.2);
             border-color: #2ea043;
             color: #2ea043;
+        }
+        .quick-link-btn.active:focus {
+            outline-color: #2ea043;
+        }
+        
+        /* 508 Compliance: Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .quick-link-btn {
+                transition: none;
+                transform: none;
+            }
+            .quick-link-btn:hover, .quick-link-btn:focus {
+                transform: none;
+            }
         }
         
         @media (max-width: 768px) {
@@ -470,12 +496,13 @@ function addQuickLinksNavigation() {
                 min-width: calc(50% - 0.25rem);
                 font-size: 0.8rem;
                 padding: 0.5rem 0.75rem;
+                min-height: 44px; /* Maintain touch target on mobile */
             }
             .quick-link-btn span {
                 display: none;
             }
             .quick-link-btn {
-                min-width: auto;
+                min-width: 44px; /* Minimum touch target width */
                 width: auto;
                 flex: none;
             }
@@ -496,30 +523,64 @@ function addQuickLinksNavigation() {
     
     // Add click handlers for smooth scrolling and active states
     document.querySelectorAll('.quick-link-btn').forEach(btn => {
+        // Click handler
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.quick-link-btn').forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Scroll to target
-            const targetId = this.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+            navigateToSection(this);
+        });
+        
+        // Keyboard handler for Enter and Space
+        btn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                navigateToSection(this);
             }
         });
+        
+        // Focus handler for accessibility
+        btn.addEventListener('focus', function() {
+            this.setAttribute('aria-pressed', this.classList.contains('active'));
+        });
     });
+    
+    function navigateToSection(button) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.quick-link-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+        });
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        button.setAttribute('aria-pressed', 'true');
+        
+        // Announce navigation to screen readers
+        const targetText = button.getAttribute('aria-label');
+        announceToScreenReader(`Navigating to ${targetText}`);
+        
+        // Scroll to target
+        const targetId = button.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const targetPosition = targetElement.offsetTop - headerHeight - 20;
+            
+            // Focus the target element for screen readers
+            targetElement.setAttribute('tabindex', '-1');
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+            });
+            
+            // Focus the target after scrolling
+            setTimeout(() => {
+                targetElement.focus();
+                announceToScreenReader(`Arrived at ${targetText}`);
+            }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500);
+        }
+    }
     
     // Update active button on scroll
     let scrollTimeout;
@@ -550,6 +611,26 @@ function addQuickLinksNavigation() {
     });
 }
 
+// 508 Compliance: Screen reader announcement function
+function announceToScreenReader(message) {
+    // Create or update live region for screen reader announcements
+    let liveRegion = document.getElementById('sr-live-region');
+    if (!liveRegion) {
+        liveRegion = document.createElement('div');
+        liveRegion.id = 'sr-live-region';
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.setAttribute('aria-atomic', 'true');
+        liveRegion.className = 'sr-only';
+        document.body.appendChild(liveRegion);
+    }
+    
+    // Clear and set new message
+    liveRegion.textContent = '';
+    setTimeout(() => {
+        liveRegion.textContent = message;
+    }, 100);
+}
+
 // Add error handling for external links
 function addLinkErrorHandling() {
     document.querySelectorAll('a[target="_blank"]').forEach(link => {
@@ -557,6 +638,8 @@ function addLinkErrorHandling() {
             try {
                 // Log the link click for analytics
                 console.log('External link clicked:', this.href);
+                // Announce to screen readers
+                announceToScreenReader(`Opening ${this.textContent} in new window`);
             } catch (error) {
                 console.error('Error tracking link click:', error);
             }

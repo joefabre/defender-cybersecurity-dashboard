@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Defender Cybersecurity Dashboard - Comprehensive resource center for network security, threat intelligence, incident response, and compliance tools.">
+    <meta name="keywords" content="cybersecurity, security dashboard, network security, threat intelligence, incident response, vulnerability management">
+    <meta name="author" content="FABREulous Technology">
     <title>Defender - Cybersecurity Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Header -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="header-content">
             <div class="header-left">
-                <h1><i class="fas fa-shield-alt"></i> Defender</h1>
+                <h1><i class="fas fa-shield-alt" aria-hidden="true"></i> Defender</h1>
             </div>
             <div class="header-right">
-                <div class="datetime" id="datetime"></div>
-                <div class="network-status" id="networkStatus">
-                    <i class="fas fa-wifi"></i>
+                <div class="datetime" id="datetime" aria-live="polite" aria-label="Current date and time"></div>
+                <div class="network-status" id="networkStatus" role="status" aria-live="polite">
+                    <i class="fas fa-wifi" aria-hidden="true"></i>
                     <span id="networkText">Online</span>
                 </div>
             </div>
@@ -25,46 +33,46 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content" role="main">
         <div class="container">
             <!-- Search will be inserted here by JavaScript -->
             
             <!-- Cybersecurity Categories -->
-            <div class="categories-grid">
+            <div class="categories-grid" role="region" aria-label="Cybersecurity resource categories">
                 
                 <!-- Network Security -->
-                <div class="category-card" id="network-security">
-                    <div class="card-header">
-                        <i class="fas fa-network-wired"></i>
+                <article class="category-card" id="network-security" role="article">
+                    <header class="card-header">
+                        <i class="fas fa-network-wired" aria-hidden="true"></i>
                         <h2>Network Security</h2>
-                    </div>
+                    </header>
                     <div class="card-content">
-                        <div class="subcategory">
+                        <section class="subcategory">
                             <h3>Firewall Management</h3>
-                            <ul class="resource-list">
-                                <li><a href="https://www.pfsense.org/" target="_blank">pfSense Documentation</a></li>
-                                <li><a href="https://www.cisco.com/c/en/us/support/security/firewalls.html" target="_blank">Cisco Firewall Guide</a></li>
-                                <li><a href="https://docs.fortinet.com/fortigate" target="_blank">FortiGate Resources</a></li>
+                            <ul class="resource-list" role="list">
+                                <li role="listitem"><a href="https://www.pfsense.org/" target="_blank" rel="noopener noreferrer" aria-label="pfSense Documentation - Opens in new window">pfSense Documentation</a></li>
+                                <li role="listitem"><a href="https://www.cisco.com/c/en/us/support/security/firewalls.html" target="_blank" rel="noopener noreferrer" aria-label="Cisco Firewall Guide - Opens in new window">Cisco Firewall Guide</a></li>
+                                <li role="listitem"><a href="https://docs.fortinet.com/fortigate" target="_blank" rel="noopener noreferrer" aria-label="FortiGate Resources - Opens in new window">FortiGate Resources</a></li>
                             </ul>
-                        </div>
-                        <div class="subcategory">
+                        </section>
+                        <section class="subcategory">
                             <h3>Network Monitoring</h3>
-                            <ul class="resource-list">
-                                <li><a href="https://www.wireshark.org/" target="_blank">Wireshark</a></li>
-                                <li><a href="https://nmap.org/" target="_blank">Nmap Network Discovery</a></li>
-                                <li><a href="https://www.nagios.org/" target="_blank">Nagios Monitoring</a></li>
+                            <ul class="resource-list" role="list">
+                                <li role="listitem"><a href="https://www.wireshark.org/" target="_blank" rel="noopener noreferrer" aria-label="Wireshark - Opens in new window">Wireshark</a></li>
+                                <li role="listitem"><a href="https://nmap.org/" target="_blank" rel="noopener noreferrer" aria-label="Nmap Network Discovery - Opens in new window">Nmap Network Discovery</a></li>
+                                <li role="listitem"><a href="https://www.nagios.org/" target="_blank" rel="noopener noreferrer" aria-label="Nagios Monitoring - Opens in new window">Nagios Monitoring</a></li>
                             </ul>
-                        </div>
-                        <div class="subcategory">
+                        </section>
+                        <section class="subcategory">
                             <h3>VPN & Remote Access</h3>
-                            <ul class="resource-list">
-                                <li><a href="https://openvpn.net/" target="_blank">OpenVPN</a></li>
-                                <li><a href="https://www.wireguard.com/" target="_blank">WireGuard</a></li>
-                                <li><a href="https://strongswan.org/" target="_blank">strongSwan IPsec</a></li>
+                            <ul class="resource-list" role="list">
+                                <li role="listitem"><a href="https://openvpn.net/" target="_blank" rel="noopener noreferrer" aria-label="OpenVPN - Opens in new window">OpenVPN</a></li>
+                                <li role="listitem"><a href="https://www.wireguard.com/" target="_blank" rel="noopener noreferrer" aria-label="WireGuard - Opens in new window">WireGuard</a></li>
+                                <li role="listitem"><a href="https://strongswan.org/" target="_blank" rel="noopener noreferrer" aria-label="strongSwan IPsec - Opens in new window">strongSwan IPsec</a></li>
                             </ul>
-                        </div>
+                        </section>
                     </div>
-                </div>
+                </article>
 
                 <!-- Threat Intelligence -->
                 <div class="category-card" id="threat-intelligence">
@@ -309,16 +317,16 @@
     </main>
 
     <!-- News Ticker -->
-    <div class="news-ticker-container">
+    <aside class="news-ticker-container" role="complementary" aria-label="Cybersecurity news ticker">
         <div class="news-ticker">
-            <div class="news-item" id="newsItems">
+            <div class="news-item" id="newsItems" aria-live="polite">
                 Loading cybersecurity news...
             </div>
         </div>
-    </div>
+    </aside>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <span>Defender v1.0.0 | © 2025 by FABREulous Technology</span>
         </div>
